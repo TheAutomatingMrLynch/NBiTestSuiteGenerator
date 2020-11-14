@@ -1,5 +1,5 @@
 # NBiTestSuiteGenerator
-NBiTestSuiteGenerator is a PowerShell module for auto generating [NBi](https://www.NBi.io) test suites based on metadata. This project relies heavily on the work of Cédric L. Charlier ([twitter](https://www.twitter.com/seddryck) | [blog](https://seddryck.wordpress.com) ) who has developed the NBi test framework. He is not a maintainer on this project but he has been kind enough to add a few changes in NBi to make this project a possibility. 
+NBiTestSuiteGenerator is a PowerShell module for auto generating [NBi](https://www.NBi.io) test suites based on metadata. This project relies heavily on the work of Cédric L. Charlier ([twitter](https://www.twitter.com/seddryck) | [blog](https://seddryck.wordpress.com) | [gihub](https://github.com/Seddryck)) who has developed the NBi test framework. He is not a maintainer on this project but he has been kind enough to add a few changes in NBi to make this project a possibility. 
 
 # Typical use-cases 
 If you want to unit test your database/OLAP cubes/Semantic models etc. you can do so even without this module. NBi even has its' own language for generating test suites (GenbiL). Some of the advantages of this module over GenbiL are:
@@ -7,7 +7,7 @@ If you want to unit test your database/OLAP cubes/Semantic models etc. you can d
 - Any transformation of raw metadata can be done on the fly. This is very handy in case of multiple sources of metadata that has to be merged first
 - All input like metadata or templates can be kept in memory so no need to access local files. You can of course use local files if you want - your choice 
 
-# Included cmdlets:
+# Included cmdlets
 ## Test suite
 - **New-NBiTestSuite**: Generates an empty NBi test suite
 - **Import-NBiTestSuite**: Imports test cases from an existing NBi test suite file (.nbits)
