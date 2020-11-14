@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30611.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NBiTestSuiteGenerator", "NBiTestSuiteGenerator\NBiTestSuiteGenerator.csproj", "{28798B65-C26C-4E3E-8845-7905BFA13C29}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NBiTestSuiteGenerator.Test", "NBiTestSuiteGenerator.Test\NBiTestSuiteGenerator.Test.csproj", "{73945982-6540-4DEF-B0D5-83F0146B2D03}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{28798B65-C26C-4E3E-8845-7905BFA13C29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28798B65-C26C-4E3E-8845-7905BFA13C29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28798B65-C26C-4E3E-8845-7905BFA13C29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28798B65-C26C-4E3E-8845-7905BFA13C29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73945982-6540-4DEF-B0D5-83F0146B2D03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73945982-6540-4DEF-B0D5-83F0146B2D03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73945982-6540-4DEF-B0D5-83F0146B2D03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73945982-6540-4DEF-B0D5-83F0146B2D03}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8A7758A1-D5CE-469F-B2A3-C000FBFB1844}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,12 @@
+﻿<test name="A dimension named 'DimensionX' exists in perspective 'PerspectiveA'.">
+	<description>Assert that the dimension named 'DimensionX' exists through the perspective 'PerspectiveA' and is visible for end-users</description>
+	<edition author="John Doe" created="2020-01-01T23:59:59"/>
+	<system-under-test>
+		<structure>	
+			<dimension caption="DimensionX" perspective="PerspectiveA"/>
+		</structure>
+	</system-under-test>
+	<assert>
+		<exists/>
+	</assert>
+</test>

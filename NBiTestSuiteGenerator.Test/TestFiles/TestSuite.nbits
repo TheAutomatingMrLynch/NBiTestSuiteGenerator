@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<testSuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://NBi/TestSuite">
+  <settings />
+  <group name="grp1">
+    <group name="grp2">
+      <test name="A dimension named 'DimA' exists in perspective 'PerspectiveX'.">
+        <description>Assert that the dimension named 'DimA' exists through the perspective 'PerspectiveX' and is visible for end-users</description>
+        <edition author="JohnDoe" created="2020-01-01T23:59:59" />
+        <system-under-test>
+          <structure>
+            <dimension caption="DimA" perspective="PerspectiveX" />
+          </structure>
+        </system-under-test>
+        <assert>
+          <exists />
+        </assert>
+      </test>
+      <test name="A dimension named 'DimB' exists in perspective 'PerspectiveX'.">
+        <description>Assert that the dimension named 'DimB' exists through the perspective 'PerspectiveX' and is visible for end-users</description>
+        <edition author="au237224" created="2020-01-01T23:59:59" />
+        <system-under-test>
+          <structure>
+            <dimension caption="DimB" perspective="PerspectiveX" />
+          </structure>
+        </system-under-test>
+        <assert>
+          <exists />
+        </assert>
+      </test>
+      <test name="A dimension named 'DimA' exists in perspective 'PerspectiveY'.">
+        <description>Assert that the dimension named 'DimA' exists through the perspective 'PerspectiveY' and is visible for end-users</description>
+        <edition author="au237224" created="2020-01-01T23:59:59" />
+        <system-under-test>
+          <structure>
+            <dimension caption="DimA" perspective="PerspectiveY" />
+          </structure>
+        </system-under-test>
+        <assert>
+          <exists />
+        </assert>
+      </test>
+    </group>
+  </group>
+</testSuite>
