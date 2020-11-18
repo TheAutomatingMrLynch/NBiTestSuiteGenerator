@@ -61,7 +61,7 @@ Add-NBiReferenceValue -TestSuite $testSuite {1}"; // 0: Assembly path, 1: Parame
         #region Tests
         [Test]
         [TestCaseSource("GetTestCases")]
-        public void ImportNBiTestSuite_TestcasesAreAdded(string parameters)
+        public void AddNBiReferenceValue_(string parameters)
         {
             // Arrange
             string script = GetScript(parameters);

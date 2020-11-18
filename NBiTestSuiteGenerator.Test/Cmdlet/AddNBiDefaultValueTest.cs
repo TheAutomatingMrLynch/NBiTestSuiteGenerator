@@ -30,7 +30,7 @@ namespace NBiTestSuiteGenerator.Test
                 new TestCaseData($"-Variable 'ConnectionString' -Value 'BlaBla' -Scope 'SystemUnderTest'")
                     .SetName("AddNBiDefaultValue_ScopeSystemUnderTest"),
                 new TestCaseData($"-Variable 'ConnectionString' -Value 'BlaBla' -Scope 'Assert'")
-                    .SetName("AddNBiDefaultValue"),
+                    .SetName("AddNBiDefaultValue_ScopeAssert"),
                 new TestCaseData($"-Variable 'ConnectionString' -Value 'BlaBla' -Scope 'SetupCleanup'")
                     .SetName("AddNBiDefaultValue_ScopeSetupCleanup")
             };
@@ -70,7 +70,7 @@ Add-NBiDefaultValue -TestSuite $testSuite {1}"; // 0: Assembly path, 1: Paramete
         #region Tests
         [Test]
         [TestCaseSource("GetTestCases")]
-        public void AddNBiDefaultValue_TestcasesAreAdded(string parameters)
+        public void AddNBiDefaultValue_(string parameters)
         {
             // Arrange
             string script = GetScript(parameters);

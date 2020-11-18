@@ -137,7 +137,7 @@ Add-NBiTestcase -TestSuite $testSuite {1}"; // 0: Assembly path, 1: Parameters
         [Test]
         [TestCaseSource("GetTestCases")]
 
-        public void AddNBiTestcase(string parameters)
+        public void AddNBiTestcase_(string parameters)
         {
             // Arrange
             string script = GetScript(parameters);

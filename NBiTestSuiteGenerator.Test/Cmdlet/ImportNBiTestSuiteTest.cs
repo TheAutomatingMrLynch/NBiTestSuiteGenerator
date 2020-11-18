@@ -70,7 +70,7 @@ Import-NBiTestSuite `
         #region Tests
         [Test]
         [TestCaseSource("GetTestCases")]
-        public void ImportNBiTestSuite_TestcasesAreAdded(string parameters)
+        public void ImportNBiTestSuite_(string parameters)
         {
             // Arrange
             string script = GetScript(parameters);

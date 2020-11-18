@@ -77,7 +77,7 @@ Add-NBiCsvProfile -TestSuite $testSuite {1}"; // 0: Assembly path, 1: Parameters
         #region Tests
         [Test]
         [TestCaseSource("GetTestCases")]
-        public void AddNBiCsvProfile_SettingsAreAdded(string parameters, string propertyName, object expected)
+        public void AddNBiCsvProfile_(string parameters, string propertyName, object expected)
         {
             // Arrange
             string script = GetScript(parameters);
