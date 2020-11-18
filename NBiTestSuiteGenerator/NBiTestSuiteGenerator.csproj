@@ -1,21 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\NUnit3TestAdapter.3.17.0\build\net35\NUnit3TestAdapter.props" Condition="Exists('..\packages\NUnit3TestAdapter.3.17.0\build\net35\NUnit3TestAdapter.props')" />
-  <Import Project="..\packages\NUnit.3.12.0\build\NUnit.props" Condition="Exists('..\packages\NUnit.3.12.0\build\NUnit.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{73945982-6540-4DEF-B0D5-83F0146B2D03}</ProjectGuid>
+    <ProjectGuid>{28798B65-C26C-4E3E-8845-7905BFA13C29}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NBi.PowerShell.Test</RootNamespace>
-    <AssemblyName>NBi.PowerShell.Test</AssemblyName>
+    <RootNamespace>NBiTestSuiteGenerator</RootNamespace>
+    <AssemblyName>NBiTestSuiteGenerator</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <!--<XmlDoc2CmdletDocStrict>true</XmlDoc2CmdletDocStrict>-->
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -25,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\NBiTestSuiteGenerator.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -34,13 +34,15 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="NBi.GenbiL">
       <HintPath>..\libs\NBi.GenbiL\NBi.GenbiL.dll</HintPath>
     </Reference>
-    <Reference Include="NBi.Xml, Version=1.19.0.0, Culture=neutral, PublicKeyToken=null" />
-    <Reference Include="nunit.framework, Version=3.12.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\packages\NUnit.3.12.0\lib\net45\nunit.framework.dll</HintPath>
+    <Reference Include="NBi.Xml">
+      <HintPath>..\libs\NBi.GenbiL\NBi.Xml.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -55,47 +57,39 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cmdlet\AddNBiCsvProfileTest.cs" />
-    <Compile Include="Cmdlet\AddNBiReferenceValueTest.cs" />
-    <Compile Include="Cmdlet\AddNBiTestcaseTest.cs" />
-    <Compile Include="Cmdlet\ImportNBiTestSuiteTest.cs" />
-    <Compile Include="Cmdlet\NewNBiTestSuiteTest.cs" />
-    <Compile Include="Cmdlet\AddNBiDefaultValueTest.cs" />
-    <Compile Include="Cmdlet\SaveNBiTestSuiteTest.cs" />
+    <Compile Include="Cmdlet\NewNBiCsvProfile.cs" />
+    <Compile Include="Cmdlet\AddNBiDefaultValue.cs" />
+    <Compile Include="Cmdlet\AddNBiCsvProfile.cs" />
+    <Compile Include="Cmdlet\AddNBiReferenceValue.cs" />
+    <Compile Include="Cmdlet\AddNBiTestcase.cs" />
+    <Compile Include="Cmdlet\ImportNBiTestSuite.cs" />
+    <Compile Include="Cmdlet\NewNBiTestSuite.cs" />
+    <Compile Include="Cmdlet\SaveNBiTestSuite.cs" />
+    <Compile Include="CsvProfile.cs" />
+    <Compile Include="EmbeddedTemplate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestSuite.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="TestFiles\AddNBiTestcase.nbitx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\AddNBiTestcase.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\AddNBiTestcase.nbitt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestSuite.nbits">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="TestFiles\AddNBiTestcase.sql">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\NBiTestSuiteGenerator\NBiTestSuiteGenerator.csproj">
-      <Project>{28798b65-c26c-4e3e-8845-7905bfa13c29}</Project>
-      <Name>NBiTestSuiteGenerator</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>ECHO ***********************************************************************
+ECHO Generate NBi.PowerShell.dll-Help.xml (for Get-Help on the module)
+$(SolutionDir)packages\XmlDoc2CmdletDoc.0.3.0\tools\XmlDoc2CmdletDoc.exe $(TargetPath)
+ECHO ***********************************************************************
+</PostBuildEvent>
+  </PropertyGroup>
+  <Import Project="..\packages\XmlDoc2CmdletDoc.0.3.0\build\XmlDoc2CmdletDoc.targets" Condition="Exists('..\packages\XmlDoc2CmdletDoc.0.3.0\build\XmlDoc2CmdletDoc.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\NUnit.3.12.0\build\NUnit.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NUnit.3.12.0\build\NUnit.props'))" />
-    <Error Condition="!Exists('..\packages\NUnit3TestAdapter.3.17.0\build\net35\NUnit3TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NUnit3TestAdapter.3.17.0\build\net35\NUnit3TestAdapter.props'))" />
+    <Error Condition="!Exists('..\packages\XmlDoc2CmdletDoc.0.3.0\build\XmlDoc2CmdletDoc.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\XmlDoc2CmdletDoc.0.3.0\build\XmlDoc2CmdletDoc.targets'))" />
   </Target>
 </Project>
