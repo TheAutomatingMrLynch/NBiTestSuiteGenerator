@@ -76,7 +76,7 @@ New-NBiCsvProfile {1}"; // 0: Assembly path, 1: Parameters
         #region Tests
         [Test]
         [TestCaseSource("GetTestCases")]
-        public void GetNBiCsvProfile_(string parameters, string propertyName, object expected)
+        public void NewNBiCsvProfile_(string parameters, string propertyName, object expected)
         {
             // Arrange
             string script = GetScript(parameters);

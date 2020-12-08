@@ -5,8 +5,8 @@ using System.Management.Automation;
 namespace NBiTestSuiteGenerator
 {
     /// <summary>
-    /// <para type="synopsis">Adds settings to a CSV profile in an existing NBi test suite. </para>
-    /// <para type="description">Adds settings to a CSV profile in an existing NBi test suite. </para>
+    /// <para type="synopsis">Creates a new CSV profile. </para>
+    /// <para type="description">Creates a new CSV profile. </para>
     /// </summary>
     /// <para type="link" uri="http://www.nbi.io/docs/config-profile-csv/">NBi documentation on NBi CSV profile</para>
     [Cmdlet(VerbsCommon.New, "NBiCsvProfile")]

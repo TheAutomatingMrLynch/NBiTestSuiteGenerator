@@ -3,13 +3,14 @@ using NBi.Xml.Settings;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 using System;
+using System.IO;
 using System.Linq;
 using System.Management.Automation.Runspaces;
 
 namespace NBiTestSuiteGenerator.Test
 {
     [TestFixture(Category = "NBiCsvProfile")]
-    public class AddNBiCsvPRofileTest
+    public class AddNBiCsvProfileTest
     {
         #region FIELDS
         private Runspace _runspace;
