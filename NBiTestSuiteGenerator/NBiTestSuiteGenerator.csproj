@@ -57,6 +57,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cmdlet\SaveNBiCsvProfile.cs" />
+    <Compile Include="Cmdlet\GetNBiCsvProfile.cs" />
     <Compile Include="Cmdlet\NewNBiCsvProfile.cs" />
     <Compile Include="Cmdlet\AddNBiDefaultValue.cs" />
     <Compile Include="Cmdlet\AddNBiCsvProfile.cs" />
