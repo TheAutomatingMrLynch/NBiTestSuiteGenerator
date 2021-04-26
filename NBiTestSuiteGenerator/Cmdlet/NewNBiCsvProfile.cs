@@ -1,4 +1,5 @@
 ﻿using NBi.GenbiL.Action.Setting;
+using NBi.GenbiL.Action.Setting.CsvProfile;
 using System.Collections.Generic;
 using System.Management.Automation;
 
@@ -61,35 +62,35 @@ namespace NBiTestSuiteGenerator
         {
             var testSuite = new TestSuite();
 
-            List<ISettingAction> actions = new List<ISettingAction>();
+            var actions = new List<ICsvProfileAction>();
 
 
             if (MyInvocation.BoundParameters.ContainsKey("FieldSeparator"))
             {
-                actions.Add(new CsvProfileFieldSeparatorAction(FieldSeparator.ToCharArray()[0]));
+                actions.Add(new FieldSeparatorAction(FieldSeparator.ToCharArray()[0]));
             }
             if (MyInvocation.BoundParameters.ContainsKey("TextQualifier"))
             {
-                actions.Add(new CsvProfileTextQualifierAction(TextQualifier.ToCharArray()[0]));
+                actions.Add(new TextQualifierAction(TextQualifier.ToCharArray()[0]));
             }
             if (MyInvocation.BoundParameters.ContainsKey("RecordSeparator"))
             {
-                actions.Add(new CsvProfileRecordSeparatorAction(RecordSeparator));
+                actions.Add(new RecordSeparatorAction(RecordSeparator));
             }
             if (MyInvocation.BoundParameters.ContainsKey("FirstRowHeader"))
             {
-                actions.Add(new CsvProfileFirstRowHeaderAction(FirstRowHeader.ToBool()));
+                actions.Add(new FirstRowHeaderAction(FirstRowHeader.ToBool()));
             }
             if (MyInvocation.BoundParameters.ContainsKey("EmptyCell"))
             {
-                actions.Add(new CsvProfileEmptyCellAction(EmptyCell));
+                actions.Add(new EmptyCellAction(EmptyCell));
             }
             if (MyInvocation.BoundParameters.ContainsKey("MissingCell"))
             {
-                actions.Add(new CsvProfileMissingCellAction(MissingCell));
+                actions.Add(new MissingCellAction(MissingCell));
             }
 
-            foreach (ISettingAction action in actions)
+            foreach (var action in actions)
             {
                 action.Execute(testSuite);
                 WriteVerbose(action.Display);
