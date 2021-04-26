@@ -7,17 +7,11 @@ using System.Management.Automation.Runspaces;
 namespace NBiTestSuiteGenerator.Test
 {
     [TestFixture(Category = "NBiReferenceValue")]
-    public class AddNBiReferenceValueTest
+    public class AddNBiReferenceValueTest : CmdletTestBase
     {
-        #region FIELDS
-        private Runspace _runspace;
-        private static readonly string _assemblyPath = typeof(AddNBiReferenceValue).Assembly.Location;
-        #endregion FIELDS
-
         #region METHODS
 
         #region Helpers
-
         public static TestCaseData[] GetTestCases()
         {
             return new TestCaseData[]
@@ -27,7 +21,7 @@ namespace NBiTestSuiteGenerator.Test
             };
         }
 
-        public static string GetScript(string parameters)
+        public static string GetScript(string assemblyPath, string parameters)
         {
             string scriptPattern =
 @"Import-Module {0}
@@ -36,27 +30,12 @@ Add-NBiReferenceValue -TestSuite $testSuite {1}"; // 0: Assembly path, 1: Parame
 
             return String.Format(
                     scriptPattern,
-                    _assemblyPath,
+                    assemblyPath,
                     parameters
                 );
         }
 
         #endregion Helpers
-
-        #region Setup and teardown
-        [OneTimeSetUp]
-        public void Setup()
-        {
-            _runspace = RunspaceFactory.CreateRunspace();
-            _runspace.Open();
-        }
-
-        [OneTimeTearDown]
-        public void TearDown()
-        {
-            _runspace.Close();
-        }
-        #endregion Setup and teardown
 
         #region Tests
         [Test]
@@ -64,8 +43,8 @@ Add-NBiReferenceValue -TestSuite $testSuite {1}"; // 0: Assembly path, 1: Parame
         public void AddNBiReferenceValue_(string parameters)
         {
             // Arrange
-            string script = GetScript(parameters);
-            Pipeline pipeline = _runspace.CreatePipeline(script);
+            string script = GetScript(AssemblyPath, parameters);
+            Pipeline pipeline = Runspace.CreatePipeline(script);
             
             // Act
             var result = pipeline.Invoke();

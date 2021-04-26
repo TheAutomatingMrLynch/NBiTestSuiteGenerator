@@ -11,31 +11,9 @@ using System.Xml.XPath;
 namespace NBiTestSuiteGenerator.Test
 {
     [TestFixture(Category = "NBiTestSuite")]
-    public class SaveNBiTestSuiteTest
+    public class SaveNBiTestSuiteTest : CmdletTestBase
     {
-        #region FIELDS
-        private Runspace _runspace;
-        private string _assemblyPath;
-        #endregion FIELDS
-
         #region METHODS
-
-        #region Setup and teardown
-        [OneTimeSetUp]
-        public void Setup()
-        {
-            _runspace = RunspaceFactory.CreateRunspace();
-            _runspace.Open();
-
-            _assemblyPath = typeof(NewNBiTestSuite).Assembly.Location;
-        }
-
-        [OneTimeTearDown]
-        public void TearDown()
-        {
-            _runspace.Close();
-        }
-        #endregion Setup and teardown
 
         #region Tests
         [Test]
@@ -46,11 +24,11 @@ namespace NBiTestSuiteGenerator.Test
             if (File.Exists(filepath)) { File.Delete(filepath); }
 
             string script = $@"
-            Import-Module { _assemblyPath }
+            Import-Module { AssemblyPath }
             $testSuite = New-NBiTestSuite
             Save-NBiTestSuite -TestSuite $testSuite -Filepath { filepath }";
 
-            Pipeline pipeline = _runspace.CreatePipeline(script);
+            Pipeline pipeline = Runspace.CreatePipeline(script);
 
             try
             {
@@ -77,11 +55,11 @@ namespace NBiTestSuiteGenerator.Test
             if (File.Exists(filepath)) { File.Delete(filepath); }
 
             string script = $@"
-            Import-Module { _assemblyPath }
+            Import-Module { AssemblyPath }
             $testSuite = New-NBiTestSuite
             Save-NBiTestSuite -TestSuite $testSuite -Filepath { filepath }";
 
-            Pipeline pipeline = _runspace.CreatePipeline(script);
+            Pipeline pipeline = Runspace.CreatePipeline(script);
 
             try
             {

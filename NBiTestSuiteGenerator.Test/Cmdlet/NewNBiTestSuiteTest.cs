@@ -8,31 +8,9 @@ using System.Management.Automation.Runspaces;
 namespace NBiTestSuiteGenerator.Test
 {
     [TestFixture(Category = "NBiTestSuite")]
-    public class NewNBiTestSuiteTest
+    public class NewNBiTestSuiteTest : CmdletTestBase
     {
-        #region FIELDS
-        private Runspace _runSpace;
-        private string _assemblyPath;
-        #endregion FIELDS
-
         #region METHODS
-
-        #region Setup and teardown
-        [OneTimeSetUp]
-        public void Setup()
-        {
-            _runSpace = RunspaceFactory.CreateRunspace();
-            _runSpace.Open();
-
-            _assemblyPath = typeof(NewNBiTestSuite).Assembly.Location;
-        }
-
-        [OneTimeTearDown]
-        public void TearDown()
-        {
-            _runSpace.Close();
-        }
-        #endregion Setup and teardown
 
         #region Tests
         [Test]
@@ -42,10 +20,10 @@ namespace NBiTestSuiteGenerator.Test
             Type expected = typeof(GenerationState);
 
             string script = $@"
-            Import-Module { _assemblyPath }
+            Import-Module { AssemblyPath }
             New-NBiTestSuite";
 
-            Pipeline pipeline = _runSpace.CreatePipeline(script);
+            Pipeline pipeline = Runspace.CreatePipeline(script);
             
             // Act
             var result = pipeline.Invoke();

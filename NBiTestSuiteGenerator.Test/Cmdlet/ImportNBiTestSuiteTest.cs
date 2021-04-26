@@ -8,11 +8,9 @@ using System.Management.Automation.Runspaces;
 namespace NBiTestSuiteGenerator.Test
 {
     [TestFixture(Category = "NBiTestSuite")]
-    public class ImportNBiTestSuiteTest
+    public class ImportNBiTestSuiteTest : CmdletTestBase
     {
         #region FIELDS
-        private Runspace _runspace;
-        private static readonly string _assemblyPath = typeof(ImportNBiTestSuite).Assembly.Location;
         private static readonly string _fileDirectory = AppDomain.CurrentDomain.BaseDirectory;
         private static readonly string _filepath = $"{ _fileDirectory }TestFiles\\TestSuite.nbits";
         #endregion FIELDS
@@ -34,7 +32,7 @@ namespace NBiTestSuiteGenerator.Test
             };
         }
 
-        public static string GetScript(string parameters)
+        public static string GetScript(string assemblyPath, string parameters)
         {
             string scriptPattern =
 @"Import-Module {0}
@@ -45,27 +43,12 @@ Import-NBiTestSuite `
 
             return String.Format(
                     scriptPattern,
-                    _assemblyPath,
+                    assemblyPath,
                     parameters
                 );
         }
 
         #endregion Helpers
-
-        #region Setup and teardown
-        [OneTimeSetUp]
-        public void Setup()
-        {
-            _runspace = RunspaceFactory.CreateRunspace();
-            _runspace.Open();
-        }
-
-        [OneTimeTearDown]
-        public void TearDown()
-        {
-            _runspace.Close();
-        }
-        #endregion Setup and teardown
 
         #region Tests
         [Test]
@@ -73,8 +56,8 @@ Import-NBiTestSuite `
         public void ImportNBiTestSuite_(string parameters)
         {
             // Arrange
-            string script = GetScript(parameters);
-            Pipeline pipeline = _runspace.CreatePipeline(script);
+            string script = GetScript(AssemblyPath, parameters);
+            Pipeline pipeline = Runspace.CreatePipeline(script);
 
             // Act
             var result = pipeline.Invoke();

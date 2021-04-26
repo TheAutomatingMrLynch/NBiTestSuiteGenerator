@@ -13,13 +13,8 @@ using System.Xml.XPath;
 namespace NBiTestSuiteGenerator.Test
 {
     [TestFixture(Category = "NBiCsvProfile")]
-    public class SaveNBiCsvProfileTest
+    public class SaveNBiCsvProfileTest : CmdletTestBase
     {
-        #region FIELDS
-        private Runspace _runspace;
-        private static readonly string _assemblyPath = typeof(AddNBiReferenceValue).Assembly.Location;
-        #endregion FIELDS
-
         #region METHODS
 
         #region Helpers
@@ -42,7 +37,7 @@ namespace NBiTestSuiteGenerator.Test
             };
         }
 
-        public static string GetScript(string parameters, string filePath)
+        public static string GetScript(string assemblyPath, string parameters, string filePath)
         {
             string scriptPattern =
 @"Import-Module {0}
@@ -52,7 +47,7 @@ Save-NBiCsvProfile -CsvProfile $profile -FilePath {2}"; // 0: Assembly path, 1: 
 
             return String.Format(
                     scriptPattern,
-                    _assemblyPath,
+                    assemblyPath,
                     parameters,
                     filePath
                 );
@@ -60,21 +55,6 @@ Save-NBiCsvProfile -CsvProfile $profile -FilePath {2}"; // 0: Assembly path, 1: 
 
         
         #endregion Helpers
-
-        #region Setup and teardown
-        [OneTimeSetUp]
-        public void Setup()
-        {
-            _runspace = RunspaceFactory.CreateRunspace();
-            _runspace.Open();
-        }
-
-        [OneTimeTearDown]
-        public void TearDown()
-        {
-            _runspace.Close();
-        }
-        #endregion Setup and teardown
 
         #region Tests
         [Test]
@@ -85,8 +65,8 @@ Save-NBiCsvProfile -CsvProfile $profile -FilePath {2}"; // 0: Assembly path, 1: 
             string filepath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "SaveNBiCsvProfile_SavesFile.xml");
             if (File.Exists(filepath)) { File.Delete(filepath); }
 
-            string script = GetScript(parameters, filepath);
-            Pipeline pipeline = _runspace.CreatePipeline(script);
+            string script = GetScript(AssemblyPath, parameters, filepath);
+            Pipeline pipeline = Runspace.CreatePipeline(script);
 
             try
             {

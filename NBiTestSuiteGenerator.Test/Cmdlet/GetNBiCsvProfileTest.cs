@@ -9,13 +9,8 @@ using System.Management.Automation.Runspaces;
 namespace NBiTestSuiteGenerator.Test
 {
     [TestFixture(Category = "NBiCsvProfile")]
-    public class GetNBiCsvProfileTest
+    public class GetNBiCsvProfileTest : CmdletTestBase
     {
-        #region FIELDS
-        private Runspace _runspace;
-        private static readonly string _assemblyPath = typeof(AddNBiReferenceValue).Assembly.Location;
-        #endregion FIELDS
-
         #region METHODS
 
         #region Helpers
@@ -42,7 +37,7 @@ namespace NBiTestSuiteGenerator.Test
             };
         }
 
-        public static string GetScript(string parameters)
+        public static string GetScript(string assemblyPath, string parameters)
         {
             string scriptPattern =
 @"Import-Module {0}
@@ -52,27 +47,12 @@ Get-NBiCsvProfile -TestSuite $testSuite"; // 0: Assembly path, 1: Parameters
 
             return String.Format(
                     scriptPattern,
-                    _assemblyPath,
+                    assemblyPath,
                     parameters
                 );
         }
 
         #endregion Helpers
-
-        #region Setup and teardown
-        [OneTimeSetUp]
-        public void Setup()
-        {
-            _runspace = RunspaceFactory.CreateRunspace();
-            _runspace.Open();
-        }
-
-        [OneTimeTearDown]
-        public void TearDown()
-        {
-            _runspace.Close();
-        }
-        #endregion Setup and teardown
 
         #region Tests
         [Test]
@@ -80,8 +60,8 @@ Get-NBiCsvProfile -TestSuite $testSuite"; // 0: Assembly path, 1: Parameters
         public void GetNBiCsvProfile_(string parameters, string propertyName, object expected)
         {
             // Arrange
-            string script = GetScript(parameters);
-            Pipeline pipeline = _runspace.CreatePipeline(script);
+            string script = GetScript(AssemblyPath, parameters);
+            Pipeline pipeline = Runspace.CreatePipeline(script);
             
             // Act
             var result = pipeline.Invoke();
